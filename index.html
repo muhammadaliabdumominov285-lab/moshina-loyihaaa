@@ -71,9 +71,9 @@
       </a>
 
       <!-- Jonli ish vaqti indikatori -->
-      <div class="showroom-status" id="showroomStatus" title="Avtosalon ish vaqti: 09:00 - 20:00">
+      <div class="showroom-status" id="showroomStatus" title="Avtosalon ish vaqti: 09:00 - 20:00 (Dam olish kunisiz)">
         <span class="status-pulse"></span>
-        <span class="status-text" id="statusText">Ochiq: 09:00 - 20:00</span>
+        <span class="status-text" id="statusText"><span class="status-prefix">Dam olish • </span>Ochiladi: 09:00</span>
       </div>
 
       <!-- Mobil menyu tugmasi (hamburger) -->
@@ -101,6 +101,34 @@
             <i class="fa-solid fa-layer-group"></i> <span>Xizmatlar</span> <i class="fa-solid fa-chevron-down nav-drop-icon"></i>
           </a>
           <div class="nav-dropdown-menu">
+            <a href="#configurator" class="nav-drop-item">
+              <i class="fa-solid fa-palette text-accent"></i>
+              <div>
+                <strong>Avto-Konfigurator</strong>
+                <span>Rang va diska tanlash</span>
+              </div>
+            </a>
+            <a href="#car-quiz" class="nav-drop-item">
+              <i class="fa-solid fa-wand-magic-sparkles text-accent"></i>
+              <div>
+                <strong>Aqlli Maslahatchi</strong>
+                <span>Sizga mos model</span>
+              </div>
+            </a>
+            <a href="#branches-map" class="nav-drop-item">
+              <i class="fa-solid fa-map-location-dot text-accent"></i>
+              <div>
+                <strong>Filiallar & Xarita</strong>
+                <span>Guliston & Toshkent</span>
+              </div>
+            </a>
+            <a href="javascript:void(0)" onclick="openFortuneWheel()" class="nav-drop-item">
+              <i class="fa-solid fa-dharmachakra text-gold"></i>
+              <div>
+                <strong>Omad G'ildiragi</strong>
+                <span>Kafolatlangan sovg'a</span>
+              </div>
+            </a>
             <a href="#fuel-calc" class="nav-drop-item">
               <i class="fa-solid fa-gas-pump text-accent"></i>
               <div>
@@ -473,6 +501,158 @@
         <button type="button" id="resetFiltersBtn" class="reset-filter-link" style="display: none;">Filtrlarni tozalash</button>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       INTERAKTIV AVTO-KONFIGURATOR (3D VIRTUAL RANG & DISKA TANLASH)
+       ========================================================== -->
+  <section id="configurator" class="section section-configurator">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fa-solid fa-palette"></i> 3D Virtual Studiya</span>
+        <h2 class="section-title">Interaktiv Avto-Konfigurator</h2>
+        <p class="section-desc">O'zingizga ma'qul avtomobilni tanlang, rangini jonli o'zgartiring, sport diskalar va tonirovka qo'shib real narxini hisoblang.</p>
+      </div>
+
+      <div class="configurator-wrapper">
+        <!-- Chap: Virtual Studiya Sahna -->
+        <div class="config-stage-box">
+          <!-- Avtomobil tanlash tablari -->
+          <div class="config-car-tabs" id="configCarTabs">
+            <button type="button" class="cfg-tab active" data-car="tracker" data-base="21500" data-name="Chevrolet Tracker 2 Premier" data-img="tracker.png">Tracker 2</button>
+            <button type="button" class="cfg-tab" data-car="malibu" data-base="34000" data-name="Chevrolet Malibu 2 Premier" data-img="malibu.png">Malibu 2</button>
+            <button type="button" class="cfg-tab" data-car="onix" data-base="18500" data-name="Chevrolet Onix Premier" data-img="onix.png">Onix Plus</button>
+            <button type="button" class="cfg-tab" data-car="songplus" data-base="29000" data-name="BYD Song Plus Champion" data-img="songplus.png">BYD Song Plus</button>
+            <button type="button" class="cfg-tab" data-car="monza" data-base="19500" data-name="Chevrolet Monza Exclusive" data-img="monza.png">Monza</button>
+          </div>
+
+          <!-- Studiya Vizual Ko'rinishi -->
+          <div class="config-stage-visual" id="configStageVisual">
+            <div class="stage-lighting"></div>
+            <div class="stage-backdrop-grid"></div>
+            
+            <!-- Mashina surati -->
+            <div class="config-car-display">
+              <img id="cfgCarImage" src="tracker.png" alt="Tracker 2 Premier" class="cfg-car-img color-white">
+              <div class="cfg-car-shadow"></div>
+              
+              <!-- Tonirovka belgisi overlay -->
+              <div class="cfg-tint-badge" id="cfgTintBadge" style="display: none;">
+                <i class="fa-solid fa-shield-halved"></i> 100% Tonirovka Qilingan
+              </div>
+            </div>
+
+            <!-- Rang va model nomi tagligi -->
+            <div class="cfg-stage-info">
+              <h3 id="cfgCarTitle">Chevrolet Tracker 2 Premier</h3>
+              <p id="cfgColorName"><i class="fa-solid fa-circle text-accent"></i> Rang: <strong>Oq Marvarid (Summit White)</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- O'ng tomon: Sozlamalar paneli -->
+        <div class="config-controls-box">
+          <!-- 1. Ranglar -->
+          <div class="cfg-control-group">
+            <label class="cfg-group-title"><i class="fa-solid fa-brush text-accent"></i> Kuzov Rangi:</label>
+            <div class="cfg-color-swatches" id="cfgColorSwatches">
+              <button type="button" class="color-swatch active" data-color="white" data-cname="Oq Marvarid (Summit White)" data-price="0" title="Oq Marvarid" style="background: #ffffff; border-color: #e2e8f0;"></button>
+              <button type="button" class="color-swatch" data-color="black" data-cname="Qora Raven (Black Onyx)" data-price="0" title="Qora Onyx" style="background: #0f172a; border-color: #475569;"></button>
+              <button type="button" class="color-swatch" data-color="asphalt" data-cname="Mokriy Asfalt (Satin Steel)" data-price="200" title="Mokriy Asfalt" style="background: #475569; border-color: #64748b;"></button>
+              <button type="button" class="color-swatch" data-color="red" data-cname="Qizil Sport (Radiant Red)" data-price="350" title="Qizil Sport" style="background: #dc2626; border-color: #ef4444;"></button>
+              <button type="button" class="color-swatch" data-color="blue" data-cname="To'q Ko'k Metallik (Royal Blue)" data-price="350" title="To'q Ko'k Metallik" style="background: #1d4ed8; border-color: #3b82f6;"></button>
+            </div>
+          </div>
+
+          <!-- 2. Diskalar -->
+          <div class="cfg-control-group">
+            <label class="cfg-group-title"><i class="fa-solid fa-compact-disc text-accent"></i> G'ildirak Diskalari:</label>
+            <div class="cfg-options-grid" id="cfgRimsGrid">
+              <button type="button" class="cfg-option-card active" data-rim="r17" data-price="0">
+                <div class="cfg-opt-info">
+                  <strong>R17 Classic Aero</strong>
+                  <span>Zavod standart diska</span>
+                </div>
+                <span class="cfg-opt-price">Standart</span>
+              </button>
+              <button type="button" class="cfg-option-card" data-rim="r18" data-price="400">
+                <div class="cfg-opt-info">
+                  <strong>R18 Sport Black</strong>
+                  <span>Qoraytirilgan sport dizayn</span>
+                </div>
+                <span class="cfg-opt-price">+$400</span>
+              </button>
+              <button type="button" class="cfg-option-card" data-rim="r19" data-price="750">
+                <div class="cfg-opt-info">
+                  <strong>R19 Diamond Cut</strong>
+                  <span>Premium ikki tusli quyma diska</span>
+                </div>
+                <span class="cfg-opt-price">+$750</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. Tonirovka va Qulaylik -->
+          <div class="cfg-control-group">
+            <label class="cfg-group-title"><i class="fa-solid fa-shield text-accent"></i> Qo'shimcha qulayliklar:</label>
+            <div class="cfg-checkbox-wrap">
+              <label class="cfg-check-label">
+                <input type="checkbox" id="cfgTintCheck" data-price="250">
+                <span class="cfg-checkbox-custom"></span>
+                <div class="cfg-check-text">
+                  <strong>100% Orqa oynalar tonirovkasi</strong>
+                  <span>Armaturali quyoshdan himoya + 1 yillik rasmiy ruxsatnoma</span>
+                </div>
+                <span class="cfg-opt-price">+$250</span>
+              </label>
+
+              <label class="cfg-check-label">
+                <input type="checkbox" id="cfgEvokorCheck" data-price="80">
+                <span class="cfg-checkbox-custom"></span>
+                <div class="cfg-check-text">
+                  <strong>Premium EVOKOR poliklar</strong>
+                  <span>Salonga moslashtirilgan maxsus namlik o'tkazmaydigan gilamchalar</span>
+                </div>
+                <span class="cfg-opt-price">+$80</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 4. Hisob-kitob va Yakuniy Narx -->
+          <div class="cfg-summary-box">
+            <div class="cfg-price-row">
+              <span>Boshlang'ich narx:</span>
+              <strong id="cfgBasePriceDisplay">$21,500</strong>
+            </div>
+            <div class="cfg-price-row">
+              <span>Qo'shimchalar qiymati:</span>
+              <span id="cfgOptionsPriceDisplay">+$0</span>
+            </div>
+            <div class="cfg-total-row">
+              <div>
+                <span class="total-label">Jami Narx:</span>
+                <h4 id="cfgTotalPriceDisplay">$21,500</h4>
+                <small id="cfgUzsPriceDisplay">~277,350,000 so'm</small>
+              </div>
+              <div class="cfg-credit-estimate">
+                <span>Taxminiy kredit:</span>
+                <strong id="cfgCreditDisplay">$330 / oy</strong>
+              </div>
+            </div>
+
+            <!-- Tugmalar -->
+            <div class="cfg-actions-row">
+              <button type="button" class="btn btn-accent" id="cfgOrderBtn" style="flex: 2;">
+                <i class="fa-solid fa-cart-shopping"></i> Ushbu Modelni Band Qilish
+              </button>
+              <button type="button" class="btn btn-glass" id="cfgPrintBtn" style="flex: 1;" title="Rasmiy kotirovka / PDF yuklab olish">
+                <i class="fa-solid fa-file-pdf text-accent"></i> PDF Chek
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -2717,6 +2897,141 @@
     </div>
   </section>
 
+  <!-- ==========================================================
+       AQLLI AVTO-MASLAHATCHI (QUIZ - SIZGA MOS MASHINA)
+       ========================================================== -->
+  <section id="car-quiz" class="section section-quiz">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Aqlli Maslahatchi</span>
+        <h2 class="section-title">O'zingizga Mos Avtomobilni Toping</h2>
+        <p class="section-desc">Atigi 3 ta tezkor savolga javob bering va tizim sizning byudjetingiz hamda ehtiyojingizga 100% mos keluvchi modellarni saralab beradi.</p>
+      </div>
+
+      <div class="quiz-card" id="quizContainer">
+        <!-- Progress bar -->
+        <div class="quiz-progress-wrap">
+          <div class="quiz-progress-bar" id="quizProgressBar" style="width: 33%;"></div>
+        </div>
+        <div class="quiz-step-indicator" id="quizStepIndicator">1-Qadam / 3: Byudjetingiz</div>
+
+        <!-- 1-Qadam: Byudjet -->
+        <div class="quiz-step active" id="quizStep1">
+          <h3 class="quiz-question"><i class="fa-solid fa-wallet text-accent"></i> Xarid qilish uchun qanday byudjet rejalashtiryapsiz?</h3>
+          <div class="quiz-options-grid">
+            <button type="button" class="quiz-option-btn" data-step="1" data-val="budget_low">
+              <div class="qo-icon"><i class="fa-solid fa-coins"></i></div>
+              <div class="qo-content">
+                <strong>$8,000 — $15,000</strong>
+                <span>Tejamkor xalq modellari (Cobalt, Gentra, Damas)</span>
+              </div>
+            </button>
+            <button type="button" class="quiz-option-btn" data-step="1" data-val="budget_mid">
+              <div class="qo-icon"><i class="fa-solid fa-car"></i></div>
+              <div class="qo-content">
+                <strong>$15,000 — $30,000</strong>
+                <span>Zamonaviy sedan va shahar krossoverlari (Tracker 2, Onix, Monza, Sonet)</span>
+              </div>
+            </button>
+            <button type="button" class="quiz-option-btn" data-step="1" data-val="budget_high">
+              <div class="qo-icon"><i class="fa-solid fa-crown"></i></div>
+              <div class="qo-content">
+                <strong>$30,000 dan yuqori</strong>
+                <span>Premium biznes sedanlar va lyuks SUV (Malibu 2, BYD Song, Tahoe, BMW)</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2-Qadam: Maqsad -->
+        <div class="quiz-step" id="quizStep2" style="display: none;">
+          <h3 class="quiz-question"><i class="fa-solid fa-route text-accent"></i> Avtomobildan asosiy foydalanish maqsadingiz nima?</h3>
+          <div class="quiz-options-grid">
+            <button type="button" class="quiz-option-btn" data-step="2" data-val="use_city">
+              <div class="qo-icon"><i class="fa-solid fa-city"></i></div>
+              <div class="qo-content">
+                <strong>Shahar ichida kundalik yurish</strong>
+                <span>Kam yoqilg'i sarfi, tirbandlikda qulaylik va oson to'xtash</span>
+              </div>
+            </button>
+            <button type="button" class="quiz-option-btn" data-step="2" data-val="use_family">
+              <div class="qo-icon"><i class="fa-solid fa-people-roof"></i></div>
+              <div class="qo-content">
+                <strong>Katta oila va uzoq sayohatlar</strong>
+                <span>Keng bagaj, yuqori klirens va 5-7 qulay o'rindiq</span>
+              </div>
+            </button>
+            <button type="button" class="quiz-option-btn" data-step="2" data-val="use_business">
+              <div class="qo-icon"><i class="fa-solid fa-briefcase"></i></div>
+              <div class="qo-content">
+                <strong>Biznes, nufuz va yuqori daraja</strong>
+                <span>Prezentabel ko'rinish, charm salon va eng so'nggi texnologiyalar</span>
+              </div>
+            </button>
+            <button type="button" class="quiz-option-btn" data-step="2" data-val="use_work">
+              <div class="qo-icon"><i class="fa-solid fa-boxes-packing"></i></div>
+              <div class="qo-content">
+                <strong>Tijorat va biznes xizmatlari</strong>
+                <span>Mustahkam shassi, arzon ehtiyot qismlar va yuk ko'tarish</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3-Qadam: Dvigatel & Yoqilg'i -->
+        <div class="quiz-step" id="quizStep3" style="display: none;">
+          <h3 class="quiz-question"><i class="fa-solid fa-gas-pump text-accent"></i> Qaysi turdagi dvigatel sizga ko'proq ma'qul?</h3>
+          <div class="quiz-options-grid">
+            <button type="button" class="quiz-option-btn" data-step="3" data-val="eng_petrol">
+              <div class="qo-icon"><i class="fa-solid fa-fire-flame-simple"></i></div>
+              <div class="qo-content">
+                <strong>Klassik Benzin (Avtomat / Mexanika)</strong>
+                <span>Oddiy va ishonchli, barcha yoqilg'i quyish shoxobchalarida bor</span>
+              </div>
+            </button>
+            <button type="button" class="quiz-option-btn" data-step="3" data-val="eng_hybrid">
+              <div class="qo-icon"><i class="fa-solid fa-leaf"></i></div>
+              <div class="qo-content">
+                <strong>Gibrid (Benzin + Elektr / DM-i)</strong>
+                <span>1,000+ km yurish zaxirasi va 100 km ga atigi 4-5 litr yoqilg'i</span>
+              </div>
+            </button>
+            <button type="button" class="quiz-option-btn" data-step="3" data-val="eng_turbo">
+              <div class="qo-icon"><i class="fa-solid fa-gauge-high"></i></div>
+              <div class="qo-content">
+                <strong>Turbo Quvvat & Sport dinamika</strong>
+                <span>Tezkor tezlanish, sport rejim va yuqori ot kuchi</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Yuklanish animatsiyasi -->
+        <div class="quiz-loading" id="quizLoading" style="display: none;">
+          <div class="quiz-spinner"></div>
+          <h4>Mezonlaringiz tahlil qilinmoqda...</h4>
+          <p>34 ta avtomobil orasidan eng ideal 2 ta model saralanmoqda</p>
+        </div>
+
+        <!-- Natijalar ko'rinishi -->
+        <div class="quiz-results" id="quizResults" style="display: none;">
+          <div class="quiz-results-header">
+            <div class="qrh-badge"><i class="fa-solid fa-circle-check text-success"></i> Tahlil Yakunlandi!</div>
+            <h3>Sizning Tanlovingiz Uchun Eng Ideal Modellar:</h3>
+          </div>
+          <div class="quiz-results-grid" id="quizResultsGrid">
+            <!-- Dinamik natijalar JS orqali joylanadi -->
+          </div>
+          <div class="quiz-restart-wrap">
+            <button type="button" class="btn btn-glass" id="quizRestartBtn">
+              <i class="fa-solid fa-rotate-left"></i> Savollarni Qayta Boshlash
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="about" class="section section-about">
     <div class="container">
       
@@ -3469,6 +3784,75 @@
 
        ========================================================== -->
 
+
+  
+  <!-- ==========================================================
+       FILIALLAR VA JONLI XARITA (SALON MANZILLARI)
+       ========================================================== -->
+  <section id="branches-map" class="section section-branches">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fa-solid fa-map-location-dot"></i> Avtosalon Filiallari</span>
+        <h2 class="section-title">Bizning Manzillar va Salonga Tashrif</h2>
+        <p class="section-desc">Biz sizga eng yaqin joyda xizmat ko'rsatamiz. Avtosalonimizga bemalol kelib test-drayv qilishingiz yoki taksi chaqirishingiz mumkin.</p>
+      </div>
+
+      <div class="branches-grid">
+        <!-- Filial 1: Guliston Markaziy -->
+        <div class="branch-card active" data-map="guliston">
+          <div class="branch-badge">Markaziy Avtosalon</div>
+          <h3>Sirdaryo & Guliston Markazi</h3>
+          <p class="branch-address"><i class="fa-solid fa-location-dot text-accent"></i> Sirdaryo viloyati, Guliston shahar, Toshkent yo'li ko'chasi, 14-bino</p>
+          <div class="branch-meta">
+            <div><i class="fa-solid fa-clock text-accent"></i> <span>Har kuni: 09:00 — 20:00 (Dam olishsiz)</span></div>
+            <div><i class="fa-solid fa-phone text-accent"></i> <span>+998 (97) 341-95-00</span></div>
+            <div><i class="fa-solid fa-car text-accent"></i> <span>180+ mashina salonda tayyor</span></div>
+          </div>
+          <div class="branch-actions">
+            <a href="https://yandex.com/maps/?rtext=~40.4907,68.7845" target="_blank" class="btn-branch btn-yandex">
+              <i class="fa-solid fa-taxi"></i> Yandex Go orqali borish
+            </a>
+            <a href="https://maps.google.com/?q=Guliston+Avtosalon" target="_blank" class="btn-branch btn-gmaps">
+              <i class="fa-solid fa-diamond-turn-right"></i> Marshrut chizish
+            </a>
+          </div>
+        </div>
+
+        <!-- Filial 2: Toshkent Vakolatxonasi -->
+        <div class="branch-card" data-map="tashkent">
+          <div class="branch-badge" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: rgba(59, 130, 246, 0.3);">Poytaxt Filiali</div>
+          <h3>Toshkent Savdo Ofisi</h3>
+          <p class="branch-address"><i class="fa-solid fa-location-dot text-accent"></i> Toshkent shahar, Sergeli tumani, Yangi Sergeli ko'chasi, 45-uy</p>
+          <div class="branch-meta">
+            <div><i class="fa-solid fa-clock text-accent"></i> <span>Dush — Shan: 09:00 — 19:00</span></div>
+            <div><i class="fa-solid fa-phone text-accent"></i> <span>+998 (99) 518-60-81</span></div>
+            <div><i class="fa-solid fa-car text-accent"></i> <span>70+ import & mahalliy modellar</span></div>
+          </div>
+          <div class="branch-actions">
+            <a href="https://yandex.com/maps/?rtext=~41.2255,69.2185" target="_blank" class="btn-branch btn-yandex">
+              <i class="fa-solid fa-taxi"></i> Yandex Go orqali borish
+            </a>
+            <a href="https://maps.google.com/?q=Sergeli+Avtomobil+Bozori" target="_blank" class="btn-branch btn-gmaps">
+              <i class="fa-solid fa-diamond-turn-right"></i> Marshrut chizish
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interaktiv Xarita Iframe Container -->
+      <div class="map-embed-container">
+        <div class="map-overlay-card">
+          <div class="moc-header">
+            <span class="status-pulse"></span>
+            <strong>AUTO MOTORS GULISTON</strong>
+          </div>
+          <p>Toshkent — Samarqand magistral yo'li bo'yida qulay to'xtash joyi va kofe-zona bilan.</p>
+          <a href="tel:+998973419500" class="moc-phone"><i class="fa-solid fa-phone"></i> +998 (97) 341-95-00</a>
+        </div>
+        <iframe title="AUTO MOTORS Xaritasi" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48729.894371427814!2d68.74900766324205!3d40.49520857973059!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38b206497f395ab7%3A0x63351ec8f7d98342!2sGuliston%2C%20Sirdaryo%20Region%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" width="100%" height="420" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
 
   <!-- ==========================================================
        MIJOZLAR SHARHLARI (CUSTOMER TESTIMONIALS)
@@ -4795,11 +5179,11 @@
       if (isOpen) {
         statusPill.classList.remove('status-closed');
         statusPill.classList.add('status-open');
-        statusText.innerText = "Ochiq: 09:00 - 20:00 • Onlayn";
+        statusText.innerHTML = '<span class="status-prefix">Ochiq: </span>09:00 - 20:00';
       } else {
         statusPill.classList.remove('status-open');
         statusPill.classList.add('status-closed');
-        statusText.innerText = "Dam olish vaqti • Ochiladi: 09:00";
+        statusText.innerHTML = '<span class="status-prefix">Dam olish • </span>Ochiladi: 09:00';
       }
     }
     updateShowroomStatus();
@@ -5738,6 +6122,171 @@
     <!-- Telefon qo'ng'irog'i -->
     <a href="tel:+998973419500" class="float-btn float-phone" title="Qo'ng'iroq qilish" aria-label="Qo'ng'iroq">
       <i class="fa-solid fa-phone"></i>
+    </a>
+  </div>
+
+
+  <!-- ==========================================================
+       AYLANUVCHI OMAD G'ILDIRAGI MODAL DIALOGI
+       ========================================================== -->
+  <div class="wheel-modal-backdrop" id="wheelModalBackdrop">
+    <div class="wheel-modal-card">
+      <button type="button" class="btn-close-modal" id="closeWheelModalBtn" aria-label="Yopish">&times;</button>
+      
+      <div class="wheel-modal-header">
+        <span class="wm-tag"><i class="fa-solid fa-gift"></i> Maxsus Bonus</span>
+        <h2>Omad G'ildiragini Aylantiring!</h2>
+        <p>Har bir tashrif buyuruvchiga 100% kafolatlangan qimmatbaho sovg'a yoki chegirma vaucheri beriladi.</p>
+      </div>
+
+      <div class="wheel-stage-wrap">
+        <div class="wheel-pointer">
+          <i class="fa-solid fa-caret-down"></i>
+        </div>
+        <canvas id="wheelCanvas" width="340" height="340"></canvas>
+        <button type="button" class="wheel-center-btn" id="spinWheelBtn">
+          <span>AYLANTIRISH</span>
+        </button>
+      </div>
+
+      <!-- Yutuq e'lon qilinadigan quti -->
+      <div class="wheel-win-box" id="wheelWinBox" style="display: none;">
+        <div class="ww-confetti-badge">🎉 TABRIKLAYMIZ! 🎉</div>
+        <h3 id="wheelWonPrize">1 Yillik Bepul KASKO Sug'urta</h3>
+        <p>Sizning maxsus promo-kodingiz: <strong id="wheelPromoCode">AUTO-8941</strong></p>
+        <div class="wheel-timer-note">
+          <i class="fa-solid fa-stopwatch text-accent"></i> Ushbu sovg'a <strong>24 soat</strong> davomida amalda saqlanadi.
+        </div>
+        <form class="wheel-claim-form" id="wheelClaimForm">
+          <input type="tel" id="wheelPhoneInput" placeholder="+998 90 123 45 67" required class="form-control">
+          <button type="submit" class="btn btn-accent"><i class="fa-solid fa-check"></i> Sovg'ani Saqlab Qolish</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Yutuq uchun konfetti canvas -->
+  <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+  <!-- ==========================================================
+       RASMIY KOTIROVKA / PDF CHEK CHOP ETISH MODALI
+       ========================================================== -->
+  <div class="quote-modal-backdrop" id="quoteModalBackdrop">
+    <div class="quote-modal-container">
+      <div class="quote-modal-actions no-print">
+        <button type="button" class="btn btn-accent" onclick="window.print()"><i class="fa-solid fa-print"></i> Chop etish / PDF Saqlash</button>
+        <button type="button" class="btn btn-glass" id="closeQuoteModalBtn"><i class="fa-solid fa-xmark"></i> Yopish</button>
+      </div>
+
+      <!-- Chop etiluvchi A4 varaq kotirovkasi -->
+      <div class="quote-sheet" id="quotePrintSheet">
+        <div class="quote-header">
+          <div class="qh-brand">
+            <span class="logo-icon-box"><i class="fa-solid fa-car-side"></i></span>
+            <div>
+              <h3>AUTO MOTORS UZBEKISTAN</h3>
+              <p>Rasmiy Avtosalon & Lizing Markazi</p>
+            </div>
+          </div>
+          <div class="qh-invoice-meta">
+            <div class="quote-invoice-no" id="quoteInvoiceNo">Hujjat № AM-2026-7841</div>
+            <div class="quote-date" id="quoteDate">Sana: 12.11.2026</div>
+          </div>
+        </div>
+
+        <div class="quote-divider"></div>
+
+        <div class="quote-parties">
+          <div>
+            <span class="qp-label">Avtosalon ma'lumotlari:</span>
+            <strong>"AUTO MOTORS" MChJ</strong>
+            <p>Sirdaryo vil., Guliston sh., Toshkent yo'li 14<br>Tel: +998 (97) 341-95-00 | info@automotors.uz</p>
+          </div>
+          <div>
+            <span class="qp-label">Mijoz / Ariza beruvchi:</span>
+            <strong id="quoteClientName">Hurmatli Mijoz</strong>
+            <p id="quoteClientPhone">Tel: Belgilanmagan (Salon maslahati)</p>
+          </div>
+        </div>
+
+        <table class="quote-table">
+          <thead>
+            <tr>
+              <th>№</th>
+              <th>Avtomobil Modeli & Tafsilotlar</th>
+              <th>Kuzov Rangi</th>
+              <th>Opsiyalar</th>
+              <th>Narxi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>
+                <strong id="quoteCarName">Chevrolet Tracker 2 Premier</strong><br>
+                <small id="quoteCarSpecs">1.2L Turbo • 132 o.k. • Avtomat</small>
+              </td>
+              <td id="quoteCarColor">Oq Marvarid</td>
+              <td id="quoteCarOptions">Standart komplektatsiya</td>
+              <td id="quoteCarPrice" class="text-right"><strong>$21,500</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- To'lov va kredit xulosasi -->
+        <div class="quote-calc-summary">
+          <div class="qcs-row">
+            <span>Boshlang'ich to'lov (20%):</span>
+            <strong id="quoteInitialPay">$4,300</strong>
+          </div>
+          <div class="qcs-row">
+            <span>Kredit muddati:</span>
+            <strong>36 oy (Yillik 18%)</strong>
+          </div>
+          <div class="qcs-row">
+            <span>Taxminiy oylik to'lov:</span>
+            <strong id="quoteMonthlyPay">$330 / oy</strong>
+          </div>
+          <div class="qcs-total-row">
+            <span>JAMI AVTOMOBIL BAHOSI:</span>
+            <strong id="quoteTotalPrice">$21,500 (~277,350,000 so'm)</strong>
+          </div>
+        </div>
+
+        <div class="quote-footer">
+          <div class="quote-terms">
+            <strong>Eslatma:</strong> Ushbu kotirovka avtosalonda 7 kun davomida narx kafolatini ta'minlaydi. Yakuniy shartnoma shaxsni tasdiqlovchi pasport bilan salonda rasmiylashtiriladi.
+          </div>
+          <div class="quote-stamp-box">
+            <div class="quote-stamp">
+              <span>AUTO MOTORS</span>
+              <small>KAFOLAT MUHRI</small>
+              <strong>TASDIQLANGAN</strong>
+            </div>
+            <div class="quote-sign">
+              <span>Bosh menejer imzosi:</span>
+              <div class="sign-line">_______________</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       SUZUVCHI TEZKOR ALOQA VA SOVG'ALAR HUBI
+       ========================================================== -->
+  <div class="floating-hub" id="floatingHub">
+    <!-- Omad g'ildiragi ochish tugmasi -->
+    <button type="button" class="f-hub-pill btn-f-gift" onclick="openFortuneWheel()" title="Omad g'ildiragi: Sovg'a yuting!">
+      <span class="f-gift-glow"></span>
+      <i class="fa-solid fa-gift"></i>
+      <span class="f-pill-text">Sovg'a Oling</span>
+    </button>
+
+    <!-- Yuqoriga qaytish tugmasi -->
+    <a href="#home" class="f-hub-circle btn-f-top" id="backToTopBtn" title="Yuqoriga qaytish">
+      <i class="fa-solid fa-chevron-up"></i>
     </a>
   </div>
 
